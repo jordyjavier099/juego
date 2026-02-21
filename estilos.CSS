@@ -1,0 +1,10 @@
+#btnNo { 
+    background-color: var(--rosa-fuerte); 
+    color: white; 
+    position: fixed; 
+    /* Cambiamos a 0.8s para un movimiento mucho más lento y fluido */
+    transition: all 0.8s ease-out; 
+    z-index: 1000;
+    /* Evita que el cursor cambie a mano demasiado rápido */
+    pointer-events: auto; 
+}

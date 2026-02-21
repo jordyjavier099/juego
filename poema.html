@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi amor ❤️</title>
+    <style>
+        body {
+            background-color: #fff0f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Georgia', serif;
+            flex-direction: column; /* Para que el botón quede abajo */
+        }
+        .contenedor-poema {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            text-align: center;
+            border: 2px solid #ffb3c1;
+            margin-bottom: 20px;
+        }
+        h2 { color: #ff4d6d; }
+        p { color: #590d22; font-style: italic; line-height: 1.8; font-size: 1.2rem; }
+        
+        /* Estilo del botón de retroceder */
+        .btn-regresar {
+            padding: 10px 20px;
+            background-color: #fb6f92;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Arial', sans-serif;
+            text-decoration: none; /* Por si usas un <a> */
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-regresar:hover {
+            background-color: #ff8fab;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-poema">
+        <h2>Mi Poema para Ti</h2>
+        <p>
+            "En el jardín de mi vida,<br>
+            la flor más bella eres tú,<br>
+            con tu sonrisa encendida<br>
+            y tu mirada llena de luz.<br><br>
+            No hay camino que no andaría,<br>
+            ni sueño que no soñaría,<br>
+            si al final de cada día,<br>
+            tú fueras mi alegría."
+        </p>
+        <p>❤️ Te amo ❤️</p>
+    </div>
+
+    <button class="btn-regresar" onclick="window.location.href='index.html'">
+        ⬅ Volver al inicio
+    </button>
+
+</body>
+</html>

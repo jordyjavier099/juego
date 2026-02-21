@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi mujercita hermosa ❤️</title>
+    <style>
+        :root {
+            --rosa-suave: #ffe5ec;
+            --rosa-fuerte: #fb6f92;
+            --rosa-medio: #ff8fab;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--rosa-suave);
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Corazones de fondo animados */
+        .corazon-bg {
+            position: absolute;
+            color: rgba(251, 111, 146, 0.3);
+            font-size: 1.5rem;
+            top: -10%;
+            z-index: 1;
+            animation: lluvia linear infinite;
+        }
+
+        @keyframes lluvia {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Contenedor y Foto con ajuste de posición */
+        .contenedor-foto {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            z-index: 10;
+            animation: flotar 3s ease-in-out infinite;
+        }
+
+        .foto-principal {
+            
+            width: 280px;
+            height: 320px; /* Un poco más alta para que quepa bien el pelo */
+            border-radius: 20px;
+            border: 6px solid white;
+            object-fit: cover;
+            /* REAJUSTE DE POSICIÓN: 0% muestra la parte más alta de la foto */
+            object-position: center 0%; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        h1 { 
+            color: var(--rosa-fuerte); 
+            font-size: 2.2rem; 
+            z-index: 10; 
+            text-shadow: 2px 2px white;
+        }
+        
+        .botones { 
+            margin-top: 30px; 
+            position: relative; 
+            width: 100%; 
+            height: 150px; 
+            z-index: 10;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: bold;
+            position: absolute;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #btnSi { 
+            background-color: var(--rosa-medio); 
+            color: white; 
+            left: 50%; 
+            top: 50%;
+            transform: translate(-120%, -50%);
+        }
+
+        #btnNo { 
+            background-color: var(--rosa-fuerte); 
+            color: white; 
+            left: 50%; 
+            top: 50%;
+            transform: translate(20%, -50%);
+        }
+
+        .cupido {
+            position: absolute;
+            font-size: 3.5rem;
+            z-index: 100;
+            pointer-events: none;
+            animation: volarCupido 3s forwards;
+        }
+
+        @keyframes volarCupido {
+            0% { transform: scale(0.5) translate(0, 0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: scale(2) translate(var(--dx), var(--dy)); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-foto">
+        <img src="foto.jpg" alt="Nosotros" class="foto-principal">
+    </div>
+
+    <h1 id="titulo">¿Quieres ser mi futura esposa? ❤️</h1>
+    
+    <div class="botones">
+        <button id="btnSi">¡SÍ!</button>
+        <button id="btnNo">No</button>
+    </div>
+
+    <script>
+        const btnSi = document.getElementById('btnSi');
+        const btnNo = document.getElementById('btnNo');
+        const titulo = document.getElementById('titulo');
+        let escalaNo = 1;
+
+        // Crear corazones de fondo automáticamente
+        function crearCorazones() {
+            for(let i=0; i<20; i++) {
+                const corazon = document.createElement('div');
+                corazon.className = 'corazon-bg';
+                corazon.innerHTML = '❤️';
+                corazon.style.left = Math.random() * 100 + 'vw';
+                corazon.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                corazon.style.opacity = Math.random();
+                document.body.appendChild(corazon);
+            }
+        }
+        crearCorazones();
+
+      
+            function huirYAchicar() {
+                const nuevaX = Math.random() * 80 + 10; // Evita que se salga completamente
+                const nuevaY = Math.random() * 80 + 10;
+                btnNo.style.transform = `translate(${nuevaX}%, ${nuevaY}%) scale(${escalaNo})`;
+                escalaNo *= 0.95; // Achica un poco cada vez
+            }
+        btnNo.addEventListener('mouseenter', huirYAchicar);
+        btnNo.addEventListener('touchstart', (e) => { e.preventDefault(); huirYAchicar(); });
+
+        btnSi.addEventListener('click', () => {
+            btnSi.style.transform = "translate(-120%, -50%) scale(0)";
+            btnSi.style.opacity = "0";
+            btnNo.style.opacity = "0";
+            titulo.innerHTML = "¡SABÍA QUE DIRÍAS QUE SÍ! ❤️";
+
+            for(let i=0; i<20; i++) {
+                setTimeout(() => {
+                    const cupido = document.createElement('div');
+                    cupido.classList.add('cupido');
+                    cupido.innerHTML = '👼';
+                    cupido.style.left = "50%";
+                    cupido.style.top = "50%";
+                    cupido.style.setProperty('--dx', (Math.random() * 1000 - 500) + 'px');
+                    cupido.style.setProperty('--dy', (Math.random() * 1000 - 500) + 'px');
+                    document.body.appendChild(cupido);
+                    setTimeout(() => cupido.remove(), 3000);
+                }, i * 100);
+            }
+
+            setTimeout(() => {
+                window.location.href = "poema.html";
+            }, 3500);
+        });
+    </script>
+</body>
+</html>
