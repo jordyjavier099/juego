@@ -1,10 +1,132 @@
+/* Variables de color */
+:root {
+    --rosa-suave: #ffe5ec;
+    --rosa-fuerte: #fb6f92;
+    --rosa-medio: #ff8fab;
+}
+
+/* Configuración general del cuerpo */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--rosa-suave);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Corazones cayendo de fondo */
+.corazon-bg {
+    position: absolute;
+    color: rgba(251, 111, 146, 0.3);
+    font-size: 1.5rem;
+    top: -10%;
+    z-index: 1;
+    animation: lluvia linear infinite;
+}
+
+@keyframes lluvia {
+    to { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* Contenedor de la foto */
+.contenedor-foto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    z-index: 10;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+.foto-principal {
+    width: 280px;
+    height: 320px; 
+    border-radius: 20px;
+    border: 6px solid white;
+    object-fit: cover;
+    object-position: center 0%; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Título de la propuesta */
+h1 { 
+    color: var(--rosa-fuerte); 
+    font-size: 2.2rem; 
+    z-index: 10; 
+    text-shadow: 2px 2px white;
+    padding: 0 20px;
+    margin: 20px 0;
+}
+
+/* Área de los botones CORREGIDA */
+.botones { 
+    margin-top: 20px; 
+    display: flex; /* Usamos flex para alinearlos uno al lado del otro al inicio */
+    justify-content: center;
+    align-items: center;
+    gap: 30px; /* Espacio entre botones */
+    width: 100%; 
+    height: 100px; 
+    z-index: 10;
+    position: relative;
+}
+
+/* Estilo general de los botones */
+button {
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Botón SÍ - Ahora se posiciona naturalmente */
+#btnSi { 
+    background-color: var(--rosa-medio); 
+    color: white; 
+    z-index: 20;
+    position: relative;
+}
+
+/* Botón NO - Empieza normal y el JS lo vuelve 'fixed' al huir */
 #btnNo { 
     background-color: var(--rosa-fuerte); 
     color: white; 
-    position: fixed; 
-    /* Cambiamos a 0.8s para un movimiento mucho más lento y fluido */
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    /* Quitamos el posicionamiento absoluto inicial para que el Flexbox lo centre */
+    position: relative; 
     transition: all 0.8s ease-out; 
     z-index: 1000;
-    /* Evita que el cursor cambie a mano demasiado rápido */
-    pointer-events: auto; 
+}
+
+/* Animación de Cupidos */
+.cupido {
+    position: absolute;
+    font-size: 3.5rem;
+    z-index: 100;
+    pointer-events: none;
+    animation: volarCupido 3s forwards;
+}
+
+@keyframes volarCupido {
+    0% { transform: scale(0.5) translate(0, 0); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: scale(2) translate(var(--dx), var(--dy)); opacity: 0; }
 }

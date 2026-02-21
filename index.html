@@ -4,125 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi mujercita hermosa ❤️</title>
-    <style>
-        :root {
-            --rosa-suave: #ffe5ec;
-            --rosa-fuerte: #fb6f92;
-            --rosa-medio: #ff8fab;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: var(--rosa-suave);
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Corazones de fondo animados */
-        .corazon-bg {
-            position: absolute;
-            color: rgba(251, 111, 146, 0.3);
-            font-size: 1.5rem;
-            top: -10%;
-            z-index: 1;
-            animation: lluvia linear infinite;
-        }
-
-        @keyframes lluvia {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
-
-        /* Contenedor y Foto con ajuste de posición */
-        .contenedor-foto {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            z-index: 10;
-            animation: flotar 3s ease-in-out infinite;
-        }
-
-        .foto-principal {
-            
-            width: 280px;
-            height: 320px; /* Un poco más alta para que quepa bien el pelo */
-            border-radius: 20px;
-            border: 6px solid white;
-            object-fit: cover;
-            /* REAJUSTE DE POSICIÓN: 0% muestra la parte más alta de la foto */
-            object-position: center 0%; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        @keyframes flotar {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        h1 { 
-            color: var(--rosa-fuerte); 
-            font-size: 2.2rem; 
-            z-index: 10; 
-            text-shadow: 2px 2px white;
-        }
-        
-        .botones { 
-            margin-top: 30px; 
-            position: relative; 
-            width: 100%; 
-            height: 150px; 
-            z-index: 10;
-        }
-
-        button {
-            padding: 15px 40px;
-            font-size: 1.3rem;
-            cursor: pointer;
-            border: none;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-weight: bold;
-            position: absolute;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        #btnSi { 
-            background-color: var(--rosa-medio); 
-            color: white; 
-            left: 50%; 
-            top: 50%;
-            transform: translate(-120%, -50%);
-        }
-
-        #btnNo { 
-            background-color: var(--rosa-fuerte); 
-            color: white; 
-            left: 50%; 
-            top: 50%;
-            transform: translate(20%, -50%);
-        }
-
-        .cupido {
-            position: absolute;
-            font-size: 3.5rem;
-            z-index: 100;
-            pointer-events: none;
-            animation: volarCupido 3s forwards;
-        }
-
-        @keyframes volarCupido {
-            0% { transform: scale(0.5) translate(0, 0); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: scale(2) translate(var(--dx), var(--dy)); opacity: 0; }
-        }
-    </style>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
@@ -143,7 +25,7 @@
         const titulo = document.getElementById('titulo');
         let escalaNo = 1;
 
-        // Crear corazones de fondo automáticamente
+        // Crear corazones de fondo
         function crearCorazones() {
             for(let i=0; i<20; i++) {
                 const corazon = document.createElement('div');
@@ -157,22 +39,39 @@
         }
         crearCorazones();
 
-      
-            function huirYAchicar() {
-                const nuevaX = Math.random() * 80 + 10; // Evita que se salga completamente
-                const nuevaY = Math.random() * 80 + 10;
-                btnNo.style.transform = `translate(${nuevaX}%, ${nuevaY}%) scale(${escalaNo})`;
-                escalaNo *= 0.95; // Achica un poco cada vez
-            }
+        function huirYAchicar() {
+            // Bajamos la escala gradualmente
+            escalaNo *= 0.90; 
+            if (escalaNo < 0.4) escalaNo = 0.4;
+
+            // Margen de seguridad para que no toque los bordes exactos
+            const margen = 100;
+            const x = Math.random() * (window.innerWidth - (margen * 2)) + margen;
+            const y = Math.random() * (window.innerHeight - (margen * 2)) + margen;
+
+            btnNo.style.position = "fixed";
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+            btnNo.style.transform = `translate(-50%, -50%) scale(${escalaNo})`;
+        }
+
         btnNo.addEventListener('mouseenter', huirYAchicar);
-        btnNo.addEventListener('touchstart', (e) => { e.preventDefault(); huirYAchicar(); });
+        btnNo.addEventListener('touchstart', (e) => { 
+            e.preventDefault(); 
+            huirYAchicar(); 
+        });
 
         btnSi.addEventListener('click', () => {
-            btnSi.style.transform = "translate(-120%, -50%) scale(0)";
+            // Desaparecer botones
+            btnSi.style.transform = "translate(-50%, -50%) scale(0)";
             btnSi.style.opacity = "0";
-            btnNo.style.opacity = "0";
+            
+            // CORRECCIÓN: Se eliminó el "style" extra que sobraba
+            btnNo.style.display = "none"; 
+            
             titulo.innerHTML = "¡SABÍA QUE DIRÍAS QUE SÍ! ❤️";
 
+            // Animación de cupidos
             for(let i=0; i<20; i++) {
                 setTimeout(() => {
                     const cupido = document.createElement('div');
@@ -187,6 +86,7 @@
                 }, i * 100);
             }
 
+            // Redirección al poema
             setTimeout(() => {
                 window.location.href = "poema.html";
             }, 3500);
